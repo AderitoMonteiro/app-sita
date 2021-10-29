@@ -36,7 +36,7 @@
 
       loginUser(): void {
         this.googlePlus.login({
-          'webClientId': '<Your web client ID>',
+          'webClientId': 'AIzaSyBpnLeYR9Xf6Lfu8XAnX79crwI-d1fZcjU',
           'offline': true
         }).then( res => {
           firebase.auth().signInWithCredential(firebase.auth.GoogleAuthProvider.credential(res.idToken))
