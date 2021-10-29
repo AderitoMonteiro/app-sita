@@ -5,12 +5,9 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { UtilService } from './util.service';
 import { menuController } from '@ionic/core';
 import { Router } from '@angular/router';
-import firebase from 'firebase/compat/app';
-import { FirebaseApp } from '@firebase/app-types';
-import { FirebaseAuth } from '@firebase/auth-types';
-import { FirebaseDatabase } from '@firebase/database-types';
-import { FirebaseStorage } from '@firebase/storage-types';
-import { FirebaseFirestore } from '@firebase/firestore-types';
+import * as firebase from 'firebase/app'
+
+
 
 
 @Component({

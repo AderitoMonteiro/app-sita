@@ -1,9 +1,8 @@
-    import { Component, OnInit } from '@angular/core';
-    import { GooglePlus } from '@ionic-native/google-plus';
-  import { NavController } from '@ionic/angular';
-    import firebase from 'firebase/compat/app';
-    import 'firebase/compat/auth';
-    import 'firebase/compat/firestore';
+import { Component, OnInit } from '@angular/core';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { NavController } from '@ionic/angular';
+import * as firebase from 'firebase'
+
 
 
     @Component({
