@@ -1,0 +1,30 @@
+<ion-header>
+ 
+</ion-header>
+
+<ion-content class="ion-padding ion-text-center">
+  <div class="container">
+    <div class="page-header">
+      
+    </div>
+
+    <div style="display: inline-grid" >
+      <img src="https://sita.cv/wp-content/uploads/2020/10/35Anos_SITAgg-300x78-1.png" />
+      <div>
+        <ion-spinner name="crescent"   *ngIf="companies == 0" style="color:#ed1b2e"></ion-spinner>
+        {{Component}}
+      </div>
+       <ion-button expand="block" color="danger"  *ngIf="companies == 5">
+        <ion-icon name="logo-googleplus"></ion-icon>
+        Login with Google
+      </ion-button>
+    
+    </div>
+   
+
+    <!-- <div class="button-container">
+      <ion-button expand="block" class="main-button" routerLink="/login" routerDirection="forward">Log in</ion-button>
+      <ion-button expand="block" color="dark" fill="clear" routerLink="/signup" routerDirection="forward">Signup</ion-button>
+    </div> -->
+  </div>
+</ion-content>
