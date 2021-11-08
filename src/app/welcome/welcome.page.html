@@ -14,9 +14,8 @@
         <ion-spinner name="crescent"   *ngIf="companies == 0" style="color:#ed1b2e"></ion-spinner>
         {{Component}}
       </div>
-       <ion-button expand="block" color="danger"  (click)="loginUser()" *ngIf="companies == 5">
-        <ion-icon name="logo-googleplus"></ion-icon>
-        Login with Google
+       <ion-button expand="block" color="danger"  routerLink="/login" *ngIf="companies == 5">
+        Login
       </ion-button>
     
     </div>
