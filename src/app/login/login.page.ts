@@ -13,29 +13,30 @@ import { UtilService } from '../util.service';
 export class LoginPage implements OnInit {
 
   userForm: FormGroup;
-  successMsg = '';
-  errorMsg = '';
+  successMsg: string = '';
+  errorMsg: string = '';
+  
 
-  error_msg= {
-    email: [
-      {
-        type: 'required',
-        message: 'Provide email.'
+  error_msg = {
+    'email': [
+      { 
+        type: 'required', 
+        message: 'Provide email.' 
       },
-      {
-        type: 'pattern',
-        message: 'Email is not valid.'
+      { 
+        type: 'pattern', 
+        message: 'Email is not valid.' 
       }
     ],
-    password: [
-      {
-        type: 'required',
-        message: 'Password is required.'
+    'password': [
+      { 
+        type: 'required', 
+        message: 'Password is required.' 
       },
-      //  {
-      //  type: 'minlength',
-      //  message: 'Password length should be 6 characters long.'
-      // }
+      { 
+        type: 'minlength', 
+        message: 'Password length should be 6 characters long.' 
+      }
     ]
   };
 
@@ -52,7 +53,7 @@ export class LoginPage implements OnInit {
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])),
       password: new FormControl('', Validators.compose([
-        // Validators.minLength(6),
+        Validators.minLength(6),
         Validators.required
       ])),
     });
@@ -61,13 +62,17 @@ export class LoginPage implements OnInit {
   signIn(value) {
     this.ionicAuthService.signinUser(value)
       .then((response) => {
-        console.log(response);
-        this.errorMsg = '';
+        console.log(response)
+        this.errorMsg = "";
         this.router.navigateByUrl('home');
       }, error => {
         this.errorMsg = error.message;
-        this.successMsg = '';
-      });
+        this.successMsg = "";
+      })
+  }
+
+  goToSignup() {
+    this.router.navigateByUrl('register');
   }
 
 }
