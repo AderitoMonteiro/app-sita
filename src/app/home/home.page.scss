@@ -118,3 +118,8 @@ ion-slide:focus {
 ion-col:focus {
     outline: none !important;
 }
+
+.ion-padding-start
+{
+  padding-inline-start: var(--ion-padding, 0px) !important;
+}

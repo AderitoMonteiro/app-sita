@@ -30,6 +30,12 @@
                 <ion-label>My Orders</ion-label>
               </ion-item>
             </ion-menu-toggle>
+
+            <ion-menu-toggle auto-hide="false">
+              <ion-item lines="none" (click)="signOut()" detail="false" class="ion-text-center" [class.selected]="selectedIndex == 5">
+                <ion-label>Logout</ion-label>
+              </ion-item>
+            </ion-menu-toggle>
           </ion-list>
 
           <!-- Close Button -->

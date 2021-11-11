@@ -12,6 +12,7 @@ export class IonicAuthService {
   ) { }
 
   createUser(value) {
+    
     return new Promise<any>((resolve, reject) => {
       this.angularFireAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
         .then(
@@ -22,6 +23,8 @@ export class IonicAuthService {
 
   signinUser(value) {
     return new Promise<any>((resolve, reject) => {
+
+
       this.angularFireAuth.auth.signInWithEmailAndPassword(value.email, value.password)
         .then(
           res => resolve(res),
