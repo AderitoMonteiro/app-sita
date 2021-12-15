@@ -20,7 +20,6 @@ export class LoginPage implements OnInit {
   successMsg: string = '';
   errorMsg: string = '';
 
-
   error_msg = {
     'email': [
       { 
