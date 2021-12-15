@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { GooglePlus } from '@ionic-native/google-plus/ngx';
 import { NavController } from '@ionic/angular';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { Storage } from '@ionic/storage-angular';
+
+
 import * as firebase from 'firebase'
+import { IonicAuthService } from '../ionic-auth.service';
 
 
 
@@ -18,7 +23,8 @@ import * as firebase from 'firebase'
       companies: any = 0;
       Component:Component;
       
-      constructor(public navCtrl: NavController, private googlePlus: GooglePlus) {
+      constructor(public navCtrl: NavController, private googlePlus: GooglePlus, private angularFireAuth: AngularFireAuth,ionicAuthService: IonicAuthService, private storage: Storage
+        ) {
         var temp = this;
         setTimeout(function(){ 
                 temp.companies =  5;
@@ -47,6 +53,7 @@ import * as firebase from 'firebase'
       }
       
       ngOnInit() {
+
       }
 
     }

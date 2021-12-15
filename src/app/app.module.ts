@@ -13,6 +13,12 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire';
 import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { IonicAuthService } from './ionic-auth.service';
+import { IonicStorageModule } from '@ionic/storage-angular';
+
+
+
 
 
 
@@ -34,7 +40,11 @@ export const firebaseConfig = {
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    HttpClientModule,
+    IonicStorageModule.forRoot(),
+    
+
     ],
   providers: [
     StatusBar,
@@ -42,7 +52,9 @@ export const firebaseConfig = {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
     SplashScreen,
     StatusBar,
-    GooglePlus
+    GooglePlus,
+    IonicAuthService,
+
 
   ],
   bootstrap: [AppComponent]

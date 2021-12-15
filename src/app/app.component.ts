@@ -6,8 +6,7 @@ import { UtilService } from './util.service';
 import { menuController } from '@ionic/core';
 import { Router } from '@angular/router';
 import { IonicAuthService } from './ionic-auth.service';
-
-
+import { Storage } from '@ionic/storage-angular';
 
 
 
@@ -26,11 +25,13 @@ export class AppComponent implements OnInit {
     private statusBar: StatusBar,
     private util: UtilService,
     private router: Router,
-    private ionicAuthService: IonicAuthService
+    private ionicAuthService: IonicAuthService,
+    private storage: Storage,
+
 
   ) {
 
-    
+    this.initializeApp();
 
   }
 
@@ -60,5 +61,22 @@ export class AppComponent implements OnInit {
 
   close() {
     menuController.toggle();
+  }
+
+  initializeApp() {
+    this.platform.ready().then(() => {
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
+
+      this.ionicAuthService.authState.subscribe(state => {
+        if (state) {
+          this.router.navigate(['home']);
+        } else {
+          this.router.navigate(['login']);
+        }
+      });
+
+    });
+
   }
 }
