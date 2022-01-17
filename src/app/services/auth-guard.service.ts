@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
-import { CanActivate } from '@angular/router';
-import { IonicAuthService} from '../ionic-auth.service'
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { IonicAuthService} from '../ionic-auth.service';
+import {take, map,tap} from 'rxjs/operators';
+import { Storage } from '@ionic/storage-angular';
+
+import {
+  Observable
+} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,10 +14,27 @@ import { IonicAuthService} from '../ionic-auth.service'
 
 export class AuthGuardService implements CanActivate {
 
-  constructor( public IonicAuthService: IonicAuthService) { }
+  constructor(private authService: IonicAuthService, private router: Router, private storage: Storage,
+   ) {}
 
-  canActivate(): boolean {
-    return this.IonicAuthService.isAuthenticated();
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+
+   
+     return this.storage.get("token").then((token) => {
+
+       console.log("texto"+token);
+
+         if (token != null) {
+
+            return true;
+            
+         } else {
+
+            return this.router.createUrlTree(['/login']);
+         }
+               
+      });  
+     
   }
   
 }

@@ -1,9 +1,11 @@
   import { Storage } from '@ionic/storage-angular';
-  import { Injectable } from '@angular/core';
+  import { ChangeDetectorRef, Injectable } from '@angular/core';
   import { AngularFireAuth } from '@angular/fire/auth';
   import { BehaviorSubject, Observable } from 'rxjs';
   import { ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
+import { TransitiveCompileNgModuleMetadata } from '@angular/compiler';
+import { TextAttribute } from '@angular/compiler/src/render3/r3_ast';
 
   ;
   @Injectable({
@@ -13,6 +15,8 @@ import { Platform } from '@ionic/angular';
   export class IonicAuthService {
 
   authState = new BehaviorSubject(false);
+  private _storage: Storage | null = null;
+
 
 
   constructor(
@@ -23,9 +27,9 @@ import { Platform } from '@ionic/angular';
 
   ) { 
 
-    this.platform.ready().then(() => {
-      this.ifLoggedIn();
-    });
+    // this.platform.ready().then(() => {
+    //   this.ifLoggedIn();
+    // });
 
   }
 
@@ -33,7 +37,7 @@ import { Platform } from '@ionic/angular';
 
   
 
-  createUser(value) {
+createUser(value) {
     
     return new Promise<any>((resolve, reject) => {
       this.angularFireAuth.auth.createUserWithEmailAndPassword(value.email, value.password)
@@ -41,41 +45,27 @@ import { Platform } from '@ionic/angular';
           res => resolve(res),
           err => reject(err));
     });
+}
+
+  signinUser(value) {
+    return new Promise<any>((resolve, reject) => {
+
+      this.angularFireAuth.auth.signInWithEmailAndPassword(value.email, value.password).then((response) => {
+
+           this.storage.create();
+           this.router.navigate(['home']);
+           this.authState.next(true);
+           
+           this.storage?.set("token", response.user.l);
+
+        })
+    
+      });
   }
 
-  // signinUser(value) {
-  //   return new Promise<any>((resolve, reject) => {
-
-  //     this.angularFireAuth.auth.signInWithEmailAndPassword(value.email, value.password)
-  //       // .then((response) => {
-
-  //       //    this.storage.create();
-  //       //   // this.errorMsg = "";
-  //       //    this.storage.set('token',response.user.l).then((response) => {
-  //       //     this.router.navigate(['home']);
-  //       //     this.authState.next(true);
-  //       //   });
-          
-  //       //   })
-        
-  //       // then(
-  //       //   res => resolve(res),err => reject(err));
-  //       //   this.storage.create();
-          
-  //       });
-  // }
-
-  ifLoggedIn() {
-    this.storage.get('token').then((response) => {
-      if (response) {
-        this.authState.next(true);
-      }
-    });
-  }
   
   signoutUser() {
 
-    // this.storage.clear();
     return new Promise<void>((resolve, reject) => {
       if (this.angularFireAuth.auth.currentUser) {
         this.angularFireAuth.auth.signOut()
@@ -89,6 +79,11 @@ import { Platform } from '@ionic/angular';
     });
   }
 
+  async init() {
+    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+    await this.storage.create();
+  }
+  
   userDetails() {
 
     return this.angularFireAuth.auth;
@@ -97,5 +92,8 @@ import { Platform } from '@ionic/angular';
   isAuthenticated() {
     return this.authState.value;
   }
+
+
+  
 
   }

@@ -68,18 +68,8 @@ export class LoginPage implements OnInit {
 
   signIn(value) {
 
-    this.angularFireAuth.auth.signInWithEmailAndPassword(value.email, value.password).then((response) => {
+     this.ionicAuthService.signinUser(value);
 
-          // this.errorMsg = "";
-            this.storage.set('token',response.user.l).then((response) => {
-            this.router.navigate(['home']);
-            this.ionicAuthService.authState.next(true);
-
-          });
-      }, error => {
-        this.errorMsg = error.message;
-        this.successMsg = "";
-      })
   }
 
   goToSignup() {

@@ -31,17 +31,15 @@ export class AppComponent implements OnInit {
 
   ) {
 
-    this.initializeApp();
+// this.initializeApp();
 
   }
 
   
-  ngOnInit() {
-    this.selectedIndex = 1;
-    
-    this.util.getMenuState().subscribe(menuState => {
-      this.isMenuEnabled = menuState;
-    });
+  async ngOnInit() {
+
+    await this.storage.create();
+
   }
 
   navigate(path, selectedId) {
@@ -49,7 +47,10 @@ export class AppComponent implements OnInit {
     this.router.navigate([path]);
   }
 
-  signOut() {
+  async signOut() {
+
+    await this.storage.clear();
+
     this.ionicAuthService.signoutUser()
       .then(res => {
         this.router.navigateByUrl('login');
@@ -64,11 +65,15 @@ export class AppComponent implements OnInit {
   }
 
   initializeApp() {
+
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
       this.ionicAuthService.authState.subscribe(state => {
+
+        console.log(state);
+
         if (state) {
           this.router.navigate(['home']);
         } else {
